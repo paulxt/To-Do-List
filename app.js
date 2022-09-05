@@ -10,23 +10,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
-const items = ["Buy Food", "Cook Food", "Eat Food"];
-const workItems = [];
+let items = ["Buy Food", "Cook Food", "Eat Food"];
+let workItems = [];
 
 app.get("/", function (req, res) {
-
-    const day = date.getDate();
+    let day = date.getDate();
 
     res.render("list", {listTitle: day, newListItems: items});
 });
 
 app.post("/", (req, res) => {
 
-    const item = req.body.newItem;
+    let item = req.body.newItem;
+    console.log(req.body.list);
 
-    if (req.body.list === Work) {
+    if (req.body.list === "Work List") {
         workItems.push(item);
-        res.redirect("work");
+        res.redirect("/work");
     } else {
         items.push(item);
         res.redirect("/");
